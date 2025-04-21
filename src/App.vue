@@ -1,35 +1,15 @@
 <script setup>
-const name = "Vue 3";
-const arrayFrutas = [
-  {
-    name: "Manzana",
-    price: "$1.00",
-    description: "Una manzana",
-    stock: 0,
-  },
-  {
-    name: "Pera",
-    price: "$2.00",
-    description: "Una pera",
-    stock: 10,
-  },
-  {
-    name: "Naranja",
-    price: "$3.00",
-    description: "Una naranja",
-    stock: 20,
-  },
-];
+  const name = "Vue 3";
+
+  // método handleClick
+  const handleClick = () => {
+    console.log("me diste cick");
+  };
 </script>
 
 <template>
   <h1>Hola {{ name }}!</h1>
-  <ul>
-    <template v-for="fruta in arrayFrutas" :key="fruta.name">
-      <li v-if="fruta.stock > 0">
-        {{ fruta }}
-      </li>
-    </template>
-</ul>
+  <button v-on:click="handleClick">Click aquí</button>
+  <button @click="handleClick">Click aquí</button>
 </template>
 
