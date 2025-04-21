@@ -1,0 +1,12 @@
+# Official Nginx image
+FROM nginx:latest
+
+# Copy your custom configuration file (if any) to the container
+#COPY ./nginx-config/httpd.conf /usr/local/nginx/conf/nginx.conf
+
+# Copy your website files to the container's document root
+COPY ./dist /usr/share/nginx/html/
+
+# Expose port 80 for HTTP traffic
+EXPOSE 80
+
