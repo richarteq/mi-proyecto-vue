@@ -1,10 +1,14 @@
 <script setup>
   const name = "Vue 3";
-  const active = true;
+  const arrayFrutas = ["🍎", "🍌", "🍉", "🍓", "🍒"];
 </script>
 
 <template>
   <h1>Hola {{ name }}!</h1>
-  <h2 v-show="active">Estoy en true</h2>
+  <ul>
+    <li v-for="(fruta, index) in arrayFrutas" :key="index">
+      {{ fruta }}
+    </li>
+  </ul>
 </template>
 
