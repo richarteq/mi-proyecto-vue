@@ -1,12 +1,14 @@
 <script setup>
+import { ref } from "vue";
+
 const name = "Vue 3";
 
-let counter = 0;
+// counter ahora es una variable reactiva
+const counter = ref(0);
 
 const increment = () => {
-  counter++;
-  // efectivamente aumentar
-  console.log(counter);
+  // mutamos el valor a través de .value
+  counter.value++;
 };
 </script>
 
