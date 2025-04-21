@@ -1,0 +1,12 @@
+# Official Apache image
+FROM httpd:latest
+
+# Copy your custom configuration file (if any) to the container
+#COPY ./apache-config/httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# Copy your website files to the container's document root
+COPY ./dist /usr/local/apache2/htdocs/
+
+# Expose port 80 for HTTP traffic
+EXPOSE 80
+
