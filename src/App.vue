@@ -12,4 +12,5 @@
   <h3>{{ active ? "Estoy activado" : "Estoy desactivado" }}</h3>
   <h4 :style="`color: ${colors[2]}`">Color con interpolación</h4>
   <h5>Contador: {{ counter + 1 }}</h5>
+  <p>{{if(active) {return counter}}}</p>
 </template>
