@@ -12,17 +12,18 @@ const decrement = () => {
 const reset = () => {
   counter.value = 0;
 };
-const classCounter = computed(() => {
+// método
+const classCounter = () => {
   if (counter.value === 0) {
     return "zero";
   }
   return counter.value > 0 ? "positive" : "negative";
-});
+};
 </script>
 
 <template>
   <h1>Hola {{ name }}!</h1>
-  <h2 :class="classCounter">
+  <h2 :class="classCounter()">
     {{ counter }}
   </h2>
   <button @click="increment">Incremet</button>
