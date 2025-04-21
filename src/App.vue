@@ -1,18 +1,36 @@
 <script setup>
-  const name = "Vue 3";
-
-  const fruta = {
+const name = "Vue 3";
+const arrayFrutas = [
+  {
+    name: "Manzana",
+    price: "$1.00",
+    description: "Una manzana",
+    stock: 0,
+  },
+  {
+    name: "Pera",
+    price: "$2.00",
+    description: "Una pera",
+    stock: 10,
+  },
+  {
     name: "Naranja",
     price: "$3.00",
     description: "Una naranja",
-  };
+    stock: 20,
+  },
+];
 </script>
 
 <template>
   <h1>Hola {{ name }}!</h1>
   <ul>
-    <li v-for="(value, propiedad) in fruta">
-      {{ propiedad }} : {{ value }}
+    <li
+      v-for="fruta in arrayFrutas"
+      :key="fruta.name"
+      v-if="fruta.stock > 0"
+    >
+      {{ fruta }}
     </li>
   </ul>
 </template>
