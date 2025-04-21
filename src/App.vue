@@ -1,3 +1,7 @@
+<script setup>
+  const name = 'Vue 3';
+</script>
+
 <template>
-  <h1>Hola Vue 3!</h1>
+  <h1>Hola {{name}}!</h1>
 </template>
