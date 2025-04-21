@@ -25,13 +25,11 @@ const arrayFrutas = [
 <template>
   <h1>Hola {{ name }}!</h1>
   <ul>
-    <li
-      v-for="fruta in arrayFrutas"
-      :key="fruta.name"
-      v-if="fruta.stock > 0"
-    >
-      {{ fruta }}
-    </li>
-  </ul>
+    <template v-for="fruta in arrayFrutas" :key="fruta.name">
+      <li v-if="fruta.stock > 0">
+        {{ fruta }}
+      </li>
+    </template>
+</ul>
 </template>
 
