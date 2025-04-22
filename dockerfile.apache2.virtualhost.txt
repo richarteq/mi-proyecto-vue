@@ -1,0 +1,49 @@
+# Official Ubuntu image
+FROM ubuntu:22.04
+
+# No interactuar
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualizar e instalar Apache2 HTTP Server 2.x
+RUN apt-get update && apt-get install -y apache2 
+
+# Limpiar paquetes
+RUN apt-get clean
+
+# Agregar link para acceder al VirtualHost
+RUN echo '<br/><a href="/mi-proyecto-vue">Acceder a mi-proyecto-vue (VirtualHost).</a>' >> /var/www/html/index.html
+
+# Copy your website files to the container's VirtualHost document root
+COPY ./dist /webapps/mi-proyecto-vue
+COPY ./dist/index.virtualhost.html /webapps/mi-proyecto-vue/index.html
+
+# Asegurar que Apache pueda acceder al directorio de la aplicación
+RUN chmod -R 755 /webapps/mi-proyecto-vue && \
+    chown -R www-data:www-data /webapps/mi-proyecto-vue
+
+# Copy virtualhost definition
+#COPY ./virtualhost.apache2.txt /usr/local/apache2/sites-available/mi-proyecto-vue.conf
+#COPY ./virtualhost.apache2.txt /usr/local/apache2/sites-enabled/mi-proyecto-vue.conf
+
+# Agregar configuración del virtualhost en el archivo principal de configuración del Servidor Web
+#RUN echo 'Include /usr/local/apache2/sites-enabled/mi-proyecto-vue.conf' >> /etc/apache2/sites-available/000-default.conf
+
+# Agrega la configuración Alias, Directory y VirtualHost
+RUN echo 'Alias /mi-proyecto-vue "/webapps/mi-proyecto-vue"' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '<Directory "/webapps/mi-proyecto-vue">' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  Options Indexes FollowSymLinks MultiViews' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  AllowOverride All' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  Require all granted' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '</Directory>' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '<VirtualHost *:80>' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  ServerAdmin webmaster@localhost' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  DocumentRoot /webapps/mi-proyecto-vue' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  ErrorLog ${APACHE_LOG_DIR}/error.log' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '  CustomLog ${APACHE_LOG_DIR}/access.log combined' >> /etc/apache2/sites-available/000-default.conf && \
+    echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
+
+# Expose port 80 for HTTP traffic
+EXPOSE 80
+
+# Ejecuta Apache2 en segundo plano
+CMD ["apache2ctl", "-D", "FOREGROUND"]

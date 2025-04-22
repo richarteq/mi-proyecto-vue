@@ -1,0 +1,17 @@
+# Alias para la webapp
+Alias /mi-proyecto-vue "/webapps/mi-proyecto-vue"
+
+# Permisos para el DocumentRoot de la webapp
+<Directory "/webapps/mi-proyecto-vue">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+</Directory>
+
+# VirtualHost para la webapp
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /webapps/mi-proyecto-vue
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
